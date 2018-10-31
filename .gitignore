@@ -1,0 +1,8 @@
+*~
+
+# The executable
+c++-speed
+
+c++-speed-results.txt
+python-speed-results.txt
+julia-speed-results.txt
