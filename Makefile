@@ -2,13 +2,18 @@ PYTHON := python3
 JULIA := julia
 GPP := g++
 
-CXXFLAGS = `gsl-config --cflags` -O3
-LDFLAGS = -O3
+CXXFLAGS = `gsl-config --cflags` -O3 -march=native
 LOADLIBES = `gsl-config --libs`
 
 .phony: all
 
-all: c++-speed-results.txt python-speed-results.txt julia-speed-results.txt
+all: python-julia-array-speed.pdf \
+	c++-speed-results.txt \
+	python-speed-results.txt \
+	julia-speed-results.txt
+
+python-julia-array-speed.pdf: c++-speed-results.txt python-speed-results.txt julia-speed-results.txt
+	$(JULIA) plot.jl
 
 c++-speed-results.txt: c++-speed
 	./$< > $@

@@ -5,33 +5,42 @@ import timeit
 import numpy as np
 
 
-def f(x1, x2, x3, x4, x5, x6):
-    return x1 + x2
+def f(r, x1, x2, x3, x4, x5, x6, x7, x8):
+    r = x1 + x2
 
 
-def g(x1, x2, x3, x4, x5, x6):
-    return x1 + x2 - x3
+def g(r, x1, x2, x3, x4, x5, x6, x7, x8):
+    r = x1 + x2 - x3
 
 
-def h(x1, x2, x3, x4, x5, x6):
-    return x1 + x2 - x3 + x4
+def h(r, x1, x2, x3, x4, x5, x6, x7, x8):
+    r = x1 + x2 - x3 + x4
 
 
-def i(x1, x2, x3, x4, x5, x6):
-    return x1 + x2 - x3 + x4 - x5
+def i(r, x1, x2, x3, x4, x5, x6, x7, x8):
+    r = x1 + x2 - x3 + x4 - x5
 
 
-def j(x1, x2, x3, x4, x5, x6):
-    return x1 + x2 - x3 + x4 - x5 + x6
+def j(r, x1, x2, x3, x4, x5, x6, x7, x8):
+    r = x1 + x2 - x3 + x4 - x5 + x6
+
+
+def k(r, x1, x2, x3, x4, x5, x6, x7, x8):
+    r = x1 + x2 - x3 + x4 - x5 + x6 - x7
+
+
+def l(r, x1, x2, x3, x4, x5, x6, x7, x8):
+    r = x1 + x2 - x3 + x4 - x5 + x6 - x7 + x8
 
 
 N = 1000000
-x = [np.random.randn(N) for i in range(6)]
+x = [np.random.randn(N) for i in range(8)]
+result = np.empty(N)
 
 
 def printtest(num, stmt):
     num_of_calls = 1
-    setup = 'from __main__ import f, g, h, i, j, x'
+    setup = 'from __main__ import f, g, h, i, j, k, l, x, result'
 
     minval = np.min(timeit.repeat(stmt, repeat=300,
                                   number=num_of_calls, setup=setup))
@@ -39,8 +48,5 @@ def printtest(num, stmt):
 
 
 print("Terms\tSpeed [ms]")
-printtest(2, 'f(*x)')
-printtest(3, 'g(*x)')
-printtest(4, 'h(*x)')
-printtest(5, 'i(*x)')
-printtest(6, 'j(*x)')
+for idx, fnname in enumerate(['f', 'g', 'h', 'i', 'j', 'k', 'l']):
+    printtest(2 + idx, fnname + '(result, *x)')

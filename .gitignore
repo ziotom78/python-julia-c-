@@ -6,3 +6,5 @@ c++-speed
 c++-speed-results.txt
 python-speed-results.txt
 julia-speed-results.txt
+
+python-julia-array-speed.pdf

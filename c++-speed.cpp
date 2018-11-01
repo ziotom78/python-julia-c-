@@ -5,61 +5,73 @@
 #include <gsl/gsl_randist.h>
 #include <gsl/gsl_rng.h>
 
-void f(std::vector<double> &result, const std::vector<double> &x1,
-       const std::vector<double> &x2, const std::vector<double> &x3,
-       const std::vector<double> &x4, const std::vector<double> &x5,
-       const std::vector<double> &x6) {
-  for (unsigned int i = 0; i < x1.size(); ++i) {
+typedef std::vector<double> Vect;
+
+void f(Vect &result, const Vect &x1, const Vect &x2, const Vect &x3,
+       const Vect &x4, const Vect &x5, const Vect &x6, const Vect &x7,
+       const Vect &x8) {
+  for (size_t i = 0; i < x1.size(); ++i) {
     result[i] = x1[i] + x2[i];
   }
 }
 
-void g(std::vector<double> &result, const std::vector<double> &x1,
-       const std::vector<double> &x2, const std::vector<double> &x3,
-       const std::vector<double> &x4, const std::vector<double> &x5,
-       const std::vector<double> &x6) {
-  for (unsigned int i = 0; i < x1.size(); ++i) {
+void g(Vect &result, const Vect &x1, const Vect &x2, const Vect &x3,
+       const Vect &x4, const Vect &x5, const Vect &x6, const Vect &x7,
+       const Vect &x8) {
+  for (size_t i = 0; i < x1.size(); ++i) {
     result[i] = x1[i] + x2[i] - x3[i];
   }
 }
 
-void h(std::vector<double> &result, const std::vector<double> &x1,
-       const std::vector<double> &x2, const std::vector<double> &x3,
-       const std::vector<double> &x4, const std::vector<double> &x5,
-       const std::vector<double> &x6) {
-  for (unsigned int i = 0; i < x1.size(); ++i) {
+void h(Vect &result, const Vect &x1, const Vect &x2, const Vect &x3,
+       const Vect &x4, const Vect &x5, const Vect &x6, const Vect &x7,
+       const Vect &x8) {
+  for (size_t i = 0; i < x1.size(); ++i) {
     result[i] = x1[i] + x2[i] - x3[i] + x4[i];
   }
 }
 
-void i(std::vector<double> &result, const std::vector<double> &x1,
-       const std::vector<double> &x2, const std::vector<double> &x3,
-       const std::vector<double> &x4, const std::vector<double> &x5,
-       const std::vector<double> &x6) {
-  for (unsigned int i = 0; i < x1.size(); ++i) {
+void i(Vect &result, const Vect &x1, const Vect &x2, const Vect &x3,
+       const Vect &x4, const Vect &x5, const Vect &x6, const Vect &x7,
+       const Vect &x8) {
+  for (size_t i = 0; i < x1.size(); ++i) {
     result[i] = x1[i] + x2[i] - x3[i] + x4[i] - x5[i];
   }
 }
 
-void j(std::vector<double> &result, const std::vector<double> &x1,
-       const std::vector<double> &x2, const std::vector<double> &x3,
-       const std::vector<double> &x4, const std::vector<double> &x5,
-       const std::vector<double> &x6) {
-  for (unsigned int i = 0; i < x1.size(); ++i) {
+void j(Vect &result, const Vect &x1, const Vect &x2, const Vect &x3,
+       const Vect &x4, const Vect &x5, const Vect &x6, const Vect &x7,
+       const Vect &x8) {
+  for (size_t i = 0; i < x1.size(); ++i) {
     result[i] = x1[i] + x2[i] - x3[i] + x4[i] - x5[i] + x6[i];
   }
 }
 
+void k(Vect &result, const Vect &x1, const Vect &x2, const Vect &x3,
+       const Vect &x4, const Vect &x5, const Vect &x6, const Vect &x7,
+       const Vect &x8) {
+  for (size_t i = 0; i < x1.size(); ++i) {
+    result[i] = x1[i] + x2[i] - x3[i] + x4[i] - x5[i] + x6[i] - x7[i];
+  }
+}
+
+void l(Vect &result, const Vect &x1, const Vect &x2, const Vect &x3,
+       const Vect &x4, const Vect &x5, const Vect &x6, const Vect &x7,
+       const Vect &x8) {
+  for (size_t i = 0; i < x1.size(); ++i) {
+    result[i] = x1[i] + x2[i] - x3[i] + x4[i] - x5[i] + x6[i] - x7[i] + x8[i];
+  }
+}
+
 template <typename F>
-double benchmark(F function, int num, std::vector<double> x1,
-                 std::vector<double> x2, std::vector<double> x3,
-                 std::vector<double> x4, std::vector<double> x5,
-                 std::vector<double> x6) {
-  std::vector<double> result(x1.size());
+double benchmark(F function, int num, const Vect &x1, const Vect &x2,
+                 const Vect &x3, const Vect &x4, const Vect &x5, const Vect &x6,
+                 const Vect &x7, const Vect &x8) {
+  Vect result(x1.size());
   double best_time;
   for (int i = 0; i < num; ++i) {
     auto start = std::chrono::steady_clock::now();
-    function(result, x1, x2, x3, x4, x5, x6);
+    function(result, x1, x2, x3, x4, x5, x6, x7, x8);
     auto end = std::chrono::steady_clock::now();
     auto diff = end - start;
 
@@ -77,29 +89,42 @@ double benchmark(F function, int num, std::vector<double> x1,
 
 int main() {
   constexpr int N = 1000000;
-  std::vector<double> x1(N);
-  std::vector<double> x2(N);
-  std::vector<double> x3(N);
-  std::vector<double> x4(N);
-  std::vector<double> x5(N);
-  std::vector<double> x6(N);
+  Vect x1(N);
+  Vect x2(N);
+  Vect x3(N);
+  Vect x4(N);
+  Vect x5(N);
+  Vect x6(N);
+  Vect x7(N);
+  Vect x8(N);
 
   // Fill the vectors with random numbers
   gsl_rng *r = gsl_rng_alloc(gsl_rng_default);
-  for (unsigned int i = 0; i < N; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     x1[i] = gsl_ran_gaussian(r, 1.0);
     x2[i] = gsl_ran_gaussian(r, 1.0);
     x3[i] = gsl_ran_gaussian(r, 1.0);
     x4[i] = gsl_ran_gaussian(r, 1.0);
     x5[i] = gsl_ran_gaussian(r, 1.0);
     x6[i] = gsl_ran_gaussian(r, 1.0);
+    x7[i] = gsl_ran_gaussian(r, 1.0);
+    x8[i] = gsl_ran_gaussian(r, 1.0);
   }
 
   int n = 2;
   std::cout << "Terms\tSpeed [ms]\n";
-  std::cout << n++ << '\t' << benchmark(f, 100, x1, x2, x3, x4, x5, x6) << '\n';
-  std::cout << n++ << '\t' << benchmark(g, 100, x1, x2, x3, x4, x5, x6) << '\n';
-  std::cout << n++ << '\t' << benchmark(h, 100, x1, x2, x3, x4, x5, x6) << '\n';
-  std::cout << n++ << '\t' << benchmark(i, 100, x1, x2, x3, x4, x5, x6) << '\n';
-  std::cout << n++ << '\t' << benchmark(j, 100, x1, x2, x3, x4, x5, x6) << '\n';
+  std::cout << n++ << '\t' << benchmark(f, 100, x1, x2, x3, x4, x5, x6, x7, x8)
+            << '\n';
+  std::cout << n++ << '\t' << benchmark(g, 100, x1, x2, x3, x4, x5, x6, x7, x8)
+            << '\n';
+  std::cout << n++ << '\t' << benchmark(h, 100, x1, x2, x3, x4, x5, x6, x7, x8)
+            << '\n';
+  std::cout << n++ << '\t' << benchmark(i, 100, x1, x2, x3, x4, x5, x6, x7, x8)
+            << '\n';
+  std::cout << n++ << '\t' << benchmark(j, 100, x1, x2, x3, x4, x5, x6, x7, x8)
+            << '\n';
+  std::cout << n++ << '\t' << benchmark(k, 100, x1, x2, x3, x4, x5, x6, x7, x8)
+            << '\n';
+  std::cout << n++ << '\t' << benchmark(l, 100, x1, x2, x3, x4, x5, x6, x7, x8)
+            << '\n';
 }
