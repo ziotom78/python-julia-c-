@@ -2,9 +2,10 @@ using PyPlot
 using DelimitedFiles
 
 filenames = [
-    ("G++ 7.3.0, flags -O3 -march", "c++-speed-results.txt"),
+    ("G++ 7.3.0, flags -O3 -march -msse3", "c++-speed-results.txt"),
     ("Python 3.6.6 + NumPy 1.15.1", "python-speed-results.txt"),
     ("Julia 1.0.1", "julia-speed-results.txt"),
+    ("Julia 1.0.1, with @inbounds @simd", "julia-simd-speed-results.txt"),
 ]
 
 for (language, filename) in filenames

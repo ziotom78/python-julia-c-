@@ -17,12 +17,12 @@ x = [Random.randn(rng, N) for i in 1:8]
 function print_result(num, b)
     best = minimum(b)
     # The member "time" is in ns
-    @printf("%d\t%8.2f\t%.2f\n", num, best.time / 1e6, best.memory / 1024^2)
+    @printf("%d\t%8.2f\n", num, best.time / 1e6)
 end
 
 result = Array{Float64}(undef, N)
 
-println("Terms\tSpeed [ms]\tMemory [MB]")
+println("Terms\tSpeed [ms]")
 print_result(2, @benchmark f(result, x...))
 print_result(3, @benchmark g(result, x...))
 print_result(4, @benchmark h(result, x...))
