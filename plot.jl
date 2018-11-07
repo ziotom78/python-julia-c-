@@ -15,8 +15,9 @@ for (language, filename) in filenames
 end
 
 xlabel("Number of terms in the expression")
-ylabel("Best speed (100 runs) [ms]")
+ylabel("Best time (100 runs) [ms]")
 legend()
 xticks(2:8)
 
-savefig("python-julia-array-speed.pdf", dpi=600, bbox_inches="tight")
+savefig("python-julia-array-speed.pdf", bbox_inches="tight")
+savefig("python-julia-array-speed.png", dpi=96, bbox_inches="tight")
